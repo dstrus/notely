@@ -12,6 +12,8 @@ angular.module('notely.notes', ['ngRoute'])
 }])
 
 .controller('NotesController', ['$scope', '$http', function($scope, $http) {
+  $scope.note = {};
+
   $http.get(nevernoteBasePath + 'notes?api_key=' + apiKey)
     .success(function(notesData) {
       $scope.notes = notesData;
@@ -20,12 +22,9 @@ angular.module('notely.notes', ['ngRoute'])
   $scope.commit = function() {
     $http.post(nevernoteBasePath + 'notes', {
       api_key: apiKey,
-      note: {
-        title: 'The magic of AngularJS',
-        body_html: 'Whoever wrote this API must be a person.'
-      }
+      note: $scope.note
     }).success(function(newNoteData) {
-      console.log(newNoteData.note.title);
+      $scope.notes.unshift(newNoteData.note);
     });
   };
 }]);
