@@ -1,7 +1,7 @@
 'use strict';
 
 var nevernoteBasePath = 'https://nevernote-1150.herokuapp.com/api/v1/',
-    apiKey = '$2a$10$TTc8gLTzfWBk9SsDO7p.J.acOzMMG535814CudrCMQgmjUSvbQ2ju';
+    apiKey = '$2a$10$3UAODMts8D3bK8uqwe2mF.F39vZD3/CypYXLUk1yvhpedfbMiBaFW';
 
 var noteApp = angular.module('notely.notes', ['ngRoute']);
 
@@ -14,6 +14,7 @@ noteApp.config(['$routeProvider', function($routeProvider) {
 noteApp.controller('NotesController', ['$scope', 'NotesBackend', function($scope, NotesBackend) {
   var self = this;
   $scope.note = {};
+  $scope.notes = [];
 
   self.assignNotes = function(notes) {
     $scope.notes = notes;
@@ -21,6 +22,14 @@ noteApp.controller('NotesController', ['$scope', 'NotesBackend', function($scope
 
   $scope.commit = function() {
     NotesBackend.postNote($scope.note, self.assignNotes);
+  };
+
+  $scope.hasNotes = function() {
+    return $scope.notes.length > 0;
+  };
+
+  $scope.loadNote = function(note) {
+    $scope.note = self.cloneNote(note);
   };
 
   NotesBackend.fetchNotes(self.assignNotes);
