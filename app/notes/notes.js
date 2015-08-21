@@ -3,7 +3,7 @@
 var nevernoteBasePath = 'https://nevernote-1150.herokuapp.com/api/v1/',
     apiKey = '$2a$10$3UAODMts8D3bK8uqwe2mF.F39vZD3/CypYXLUk1yvhpedfbMiBaFW';
 
-var noteApp = angular.module('notely.notes', ['ngRoute']);
+var noteApp = angular.module('notely.notes', ['ngRoute', 'textAngular']);
 
 noteApp.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/notes', {
